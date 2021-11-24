@@ -1,28 +1,15 @@
-//const model = require("../models");
-//const sql = require('mssql');
-//const User = model.user;
 
-//const config = require("../config/auth.config");
-//const Transport = require("../helpers/email.helpers");
-//const db = require("../models");
-//const User = db.users;
-//const UserProfile = db.usersProfile;
-//const Token = db.tokens;
-//const Op = db.Sequelize.Op;
-
-//var jwt = require("jsonwebtoken");
-//var bcrypt = require("bcryptjs");
 import { Request, Response, NextFunction } from 'express';
 import { Category, CategoryInput } from '../models/category.model';
 import { Product } from '../models/product.model';
 
 
-const getCategories = async (req: Request, res: Response, next: NextFunction) => {
+const getCategories = async (req: Request, res: Response) => {
     const Categories = await Category.find().sort('-createdAt').exec();
     return res.status(200).json({ data: Categories });
 };
 
-const getCategory = async (req: Request, res: Response, next: NextFunction) => {
+const getCategory = async (req: Request, res: Response) => {
     const { id } = req.params;
     const category = await Category.findOne({ _id: id });
  
@@ -33,7 +20,7 @@ const getCategory = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({ data: category });
 };
 
-const getCategoryProducts = async (req: Request, res: Response, next: NextFunction) => {
+const getCategoryProducts = async (req: Request, res: Response) => {
     const { slug } = req.params;
 
     const category = await Category.findOne({ slug: slug });
@@ -50,7 +37,7 @@ const getCategoryProducts = async (req: Request, res: Response, next: NextFuncti
     return res.status(200).json({ data: product });
 };
 
-const addCategory = async (req: Request, res: Response, next: NextFunction) => {
+const addCategory = async (req: Request, res: Response) => {
     const { name } = req.body;
 
     if (!name) {
@@ -58,21 +45,19 @@ const addCategory = async (req: Request, res: Response, next: NextFunction) => {
             message: 'The fields name and description are required',
         });
     }
-    const CategoryInput: CategoryInput = {
+    const categoryInput: CategoryInput = {
         name
       };
     
-    const CategoryCreated = Category.create(CategoryInput);
+    const CategoryCreated = Category.create(categoryInput);
 
     return res.status(201).json({ data: CategoryCreated });
 };
 
-const setCategory = async (req: Request, res: Response, next: NextFunction) => {
+const setCategory = async (req: Request, res: Response) => {
     const { id, name } = req.body;
-    //console.log(id);
     const category = await Category.findOne({ _id: id });
-
-  
+ 
     if (!category) {
       return res.status(404).json({ message: `Category with id "${id}" not found.` });
     }

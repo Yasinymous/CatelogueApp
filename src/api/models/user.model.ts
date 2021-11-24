@@ -4,16 +4,12 @@ type UserDocument = Document & {
   fullName: string;
   email: string;
   password: string;
-  enabled: string;
-  role: string;
 };
 
 type UserInput = {
   fullName: UserDocument['fullName'];
   email: UserDocument['email'];
   password: UserDocument['password'];
-  enabled: UserDocument['enabled'];
-  role: UserDocument['role'];
 };
 
 const usersSchema = new Schema(
@@ -31,19 +27,13 @@ const usersSchema = new Schema(
       type: Schema.Types.String,
       required: true,
     },
-    enabled: {
-      type: Schema.Types.Boolean,
-      default: true,
-    },
-    role: {
-      type: Schema.Types.ObjectId,
-      ref: 'Role',
-      required: true,
-      index: true,
+    token: {
+      type: Schema.Types.String,
+      //required: true,
     },
   },
   {
-    collection: 'users',
+    collection: 'Users',
     timestamps: true,
   },
 );

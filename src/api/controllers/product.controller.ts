@@ -1,17 +1,3 @@
-//const model = require("../models");
-//const sql = require('mssql');
-//const User = model.user;
-
-//const config = require("../config/auth.config");
-//const Transport = require("../helpers/email.helpers");
-//const db = require("../models");
-//const User = db.users;
-//const UserProfile = db.usersProfile;
-//const Token = db.tokens;
-//const Op = db.Sequelize.Op;
-
-//var jwt = require("jsonwebtoken");
-//var bcrypt = require("bcryptjs");
 import { Request, Response, NextFunction } from 'express';
 import { Product, ProductInput } from '../models/product.model';
 
@@ -21,7 +7,7 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({ data: products });
 };
 
-const getProduct = async (req: Request, res: Response, next: NextFunction) => {
+const getProduct = async (req: Request, res: Response) => {
     const { slug } = req.params;
     console.log(slug)
     const product = await Product.findOne({ slug: slug }).populate('category').exec();
@@ -33,11 +19,8 @@ const getProduct = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({ data: product });
 };
 
-const getFavProduct = async (req: Request, res: Response, next: NextFunction) => {
-    let {username , email, password, firstname, lastname } = req.body;
-};
 
-const addProduct = async (req: Request, res: Response, next: NextFunction) => {
+const addProduct = async (req: Request, res: Response) => {
     const { name, description, price, category } = req.body;
 
     if (!name || !description || !price || !category) {
@@ -58,7 +41,7 @@ const addProduct = async (req: Request, res: Response, next: NextFunction) => {
 
 };
 
-const setProduct = async (req: Request, res: Response, next: NextFunction) => {
+const setProduct = async (req: Request, res: Response) => {
     const { id, name, description, price } = req.body;
     //console.log(id);
     const product = await Product.findOne({ _id: id });
@@ -80,7 +63,17 @@ const setProduct = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({ data: productUpdated });
 };
 
-const setFavProduct = async (req: Request, res: Response, next: NextFunction) => {
+// favorite 
+
+const getFavProduct = async (req: Request, res: Response) => {
+    let {username , email, password, firstname, lastname } = req.body;
+};
+
+const addFavProduct = async (req: Request, res: Response) => {
+    let {username , email, password, firstname, lastname } = req.body;
+};
+
+const deleteFavProduct = async (req: Request, res: Response) => {
     let {username , email, password, firstname, lastname } = req.body;
     if (username && password && email && firstname && lastname){
   
@@ -92,4 +85,4 @@ const setFavProduct = async (req: Request, res: Response, next: NextFunction) =>
  
 };
 
-export default { getProducts, getProduct, getFavProduct, addProduct, setProduct, setFavProduct };
+export default { getProducts, getProduct, addProduct, setProduct, getFavProduct, addFavProduct, deleteFavProduct  };

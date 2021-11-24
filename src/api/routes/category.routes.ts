@@ -4,15 +4,15 @@ import controller from '../controllers/category.controller';
 
 const router = express.Router();
 
-router.get("/get/category/all", controller.getCategories);
+router.get("/get/all", controller.getCategories);
 
-router.get("/get/category/:id",  controller.getCategory);
+router.get("/get/:id",  controller.getCategory);
 
-router.get("/get/category/:slug/product",  controller.getCategoryProducts);
+router.get("/get/product/:slug",  controller.getCategoryProducts);
 
-router.post("/add/category", controller.addCategory);
+router.post("/add", controller.addCategory);
 
-router.post("/set/category", controller.setCategory);
+router.put("/set", controller.setCategory);
 
 //router.post("/set/product", [authJwt.verifyToken], controller.setProduct);
 

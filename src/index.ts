@@ -3,7 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import config from './api/config/config';
-import { productRoutes, categoryRoutes, sliderRoutes } from './api/routes';
+import { productRoutes, categoryRoutes, sliderRoutes, userRoutes } from './api/routes';
 import db from './api/models';
 
 const port = config.server.port || 3001;
@@ -32,6 +32,8 @@ db.mongoose.connect(config.mongo.url)
 app.use('/products', productRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/sliders', sliderRoutes);
+app.use('/users', userRoutes);
+
 
 /** Error handling */
 app.use((req, res, next) => {
