@@ -38,15 +38,16 @@ const getCategoryProducts = async (req: Request, res: Response) => {
 };
 
 const addCategory = async (req: Request, res: Response) => {
-    const { name } = req.body;
+    const { name, image } = req.body;
 
-    if (!name) {
+    if (!name || !image) {
         return res.status(422).json({
             message: 'The fields name and description are required',
         });
     }
     const categoryInput: CategoryInput = {
-        name
+        name,
+        image
       };
     
     const CategoryCreated = Category.create(categoryInput);
@@ -55,21 +56,21 @@ const addCategory = async (req: Request, res: Response) => {
 };
 
 const setCategory = async (req: Request, res: Response) => {
-    const { id, name } = req.body;
+    const { id, name, image } = req.body;
     const category = await Category.findOne({ _id: id });
  
     if (!category) {
       return res.status(404).json({ message: `Category with id "${id}" not found.` });
     }
 
-    if (!name) {
+    if (!name || !image) {
       return res.status(422).json({ message: 'The fields name and description are required' });
     }
   
-    await Category.updateOne({ _id: id }, { name });
+    await Category.updateOne({ _id: id }, { name,image });
   
 
-    const categoryUpdated = await Category.findById(id, { name });
+    const categoryUpdated = await Category.findById(id, { name,image });
   
     return res.status(200).json({ data: categoryUpdated });
 };

@@ -15,11 +15,11 @@ router.post("/sign/out",  [authJwt.verifyToken], controller.signOut);
 
 router.get("/get/all/favorite", [authJwt.verifyToken], favController.getAllFavProduct);
 
-router.get("/get/favorite", [authJwt.verifyToken], favController.getFavProduct);
+//router.get("/get/favorite", [authJwt.verifyToken], favController.getFavProduct);
 
 router.post("/add/favorite", [authJwt.verifyToken], favController.addFavProduct);
 
-router.delete("/delete/favorite", [authJwt.verifyToken], favController.deleteFavProduct);
+router.post("/delete/favorite", [authJwt.verifyToken], favController.deleteFavProduct);
 
 
 export = router;

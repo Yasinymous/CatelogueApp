@@ -21,9 +21,9 @@ const getProduct = async (req: Request, res: Response) => {
 
 
 const addProduct = async (req: Request, res: Response) => {
-    const { name, description, price, category } = req.body;
+    const { name, description, price, category, image } = req.body;
 
-    if (!name || !description || !price || !category) {
+    if (!name || !description || !price || !category || !image) {
         return res.status(422).json({
             message: 'The fields name and description are required',
         });
@@ -32,7 +32,8 @@ const addProduct = async (req: Request, res: Response) => {
         name,
         description,
         price,
-        category
+        category,
+        image
       };
     
     const productCreated = Product.create(productInput);
@@ -42,7 +43,7 @@ const addProduct = async (req: Request, res: Response) => {
 };
 
 const setProduct = async (req: Request, res: Response) => {
-    const { id, name, description, price } = req.body;
+    const { id, name, description, price, image } = req.body;
     //console.log(id);
     const product = await Product.findOne({ _id: id });
 
@@ -55,10 +56,10 @@ const setProduct = async (req: Request, res: Response) => {
       return res.status(422).json({ message: 'The fields name and description are required' });
     }
   
-    await Product.updateOne({ _id: id }, { name, description, price });
+    await Product.updateOne({ _id: id }, { name, description, price,image });
   
 
-    const productUpdated = await Product.findById(id, { name, description, price });
+    const productUpdated = await Product.findById(id, { name, description, price,image });
   
     return res.status(200).json({ data: productUpdated });
 };

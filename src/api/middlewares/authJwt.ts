@@ -7,7 +7,6 @@ import { User } from '../models/user.model';
 
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     const bearerHeader = req.headers['authorization'];
-
     //check if bearer is undefined
     if(typeof bearerHeader !== 'undefined'){
         //split the space at the bearer

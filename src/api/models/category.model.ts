@@ -7,10 +7,12 @@ mongoose.plugin(slugUpdate);
 
 type CategoryDocument = Document & {
     name: string;
+    image: string;
   };
   
   type CategoryInput = {
     name: CategoryDocument['name'];
+    image: CategoryDocument['image'];
   };
   
   const CategoriesSchema = new Schema(
@@ -19,6 +21,10 @@ type CategoryDocument = Document & {
         type: Schema.Types.String,
         required: true,
         unique: true,
+      },
+      image: {
+        type: Schema.Types.String,
+        required: true,
       },
       slug: { 
         type: String,

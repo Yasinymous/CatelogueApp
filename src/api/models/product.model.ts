@@ -13,6 +13,7 @@ type ProductDocument = Document & {
     price: number;
     isFavorite: boolean;
     category: string;
+    image: string;
   };
   
   type ProductInput = {
@@ -20,7 +21,7 @@ type ProductDocument = Document & {
     description: ProductDocument['description'];
     price: ProductDocument['price'];
     category: ProductDocument['category'];
-    //isFavorite: ProductDocument['isFavorite'];
+    image: ProductDocument['image'];
   };
   
   const ProductsSchema = new Schema(
@@ -38,9 +39,9 @@ type ProductDocument = Document & {
         type: Schema.Types.Number,
         default: 0,
       },
-      isFavorite: {
-        type: Schema.Types.Boolean,
-        default: false,
+      image: {
+        type: Schema.Types.String,
+        default: '',
       },
       slug: { 
         type: String,
